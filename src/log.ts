@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-const prefix = 'pino-http-send';
+const prefix = 'pino-slack-webhook';
 
 export function logInfo(message: unknown, ...params: any[]): void {
   console.log(chalk.green(`${prefix} - ${message}`, ...params));

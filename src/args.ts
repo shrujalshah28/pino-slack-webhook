@@ -39,8 +39,8 @@ export let args: Args;
  */
 export function loadArgs(): Args {
   args = yargs
-    .usage('pino-http-send [options]')
-    .env('PINO_HTTP_SEND')
+    .usage('pino-slack-webhook [options]')
+    .env('PINO_SLACK_WEBHOOK')
     .option('log', {
       alias: 'l',
       type: 'boolean',
@@ -49,7 +49,7 @@ export function loadArgs(): Args {
     })
     .option('silent', {
       type: 'boolean',
-      desc: 'silence pino-http-send logs for failures and retries',
+      desc: 'silence pino-slack-webhook logs for failures and retries',
       default: false,
     })
     .option('method', {
