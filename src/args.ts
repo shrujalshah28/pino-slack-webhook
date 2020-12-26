@@ -10,7 +10,6 @@ export type Args = {
   username?: string;
   password?: string;
   headers?: Record<string, string>;
-  batchSize?: number;
   retries?: number;
   interval?: number;
   timeout?: number;
@@ -26,7 +25,6 @@ const defaultArgs: Args = {
   method: 'POST',
   bodyType: 'json',
   url: '',
-  batchSize: 10,
   retries: 5,
   interval: 1000,
   timeout: 5000,
@@ -84,13 +82,6 @@ export function loadArgs(): Args {
       type: 'string',
       desc: 'basic auth password',
       group: 'Basic Auth',
-    })
-    .option('batchSize', {
-      alias: 's',
-      type: 'number',
-      desc: 'how many logs to send at a time',
-      group: 'Sending',
-      default: 10,
     })
     .option('retries', {
       alias: 'r',
