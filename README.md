@@ -15,30 +15,36 @@ $ pino-slack-webhook --help
 pino-slack-webhook [options]
 
 Sending
-  --method, -m
+  -m, --method
              [string] [choices: "POST", "PUT", "PATCH", "GET"] [default: "POST"]
-  --bodyType, -b   type of body to send
-                          [string] [choices: "json", "ndjson"] [default: "json"]
-  --url            url to send logs to                       [string] [required]
-  --timeout, -t    timeout (in ms) to send logs in bucket that are not filled
+      --url      url to send logs to                         [string] [required]
+  -t, --timeout  timeout (in ms) to send logs in bucket that are not filled
                                                         [number] [default: 5000]
 
 Basic Auth
-  --username, -u  basic auth username                                   [string]
-  --password, -p  basic auth password                                   [string]
+  -u, --username  basic auth username                                   [string]
+  -p, --password  basic auth password                                   [string]
 
 Retry
-  --retries, -r   number of retries to do if failure       [number] [default: 5]
-  --interval, -i  interval (in ms) to retry sending if failure
+  -r, --retries   number of retries to do if failure       [number] [default: 5]
+  -i, --interval  interval (in ms) to retry sending if failure
                                                         [number] [default: 1000]
 
-Options:
-  --help        Show help                                              [boolean]
-  --version     Show version number                                    [boolean]
-  --log, -l     log to console as well                [boolean] [default: false]
-  --silent      silence pino-slack-webhook logs for failures and retries
+Slack
+      --unfurlLinks  Enables or disables link unfurling
                                                       [boolean] [default: false]
-  --config, -c  path to json config                                     [string]
+      --unfurlMedia  Enables or disables media unfurling
+                                                      [boolean] [default: false]
+  -m, --mrkdwn       Enables or disables mrkdwn formatting
+                                                       [string] [default: false]
+
+Options:
+      --help     Show help                                             [boolean]
+      --version  Show version number                                   [boolean]
+  -l, --log      log to console as well               [boolean] [default: false]
+      --silent   silence pino-slack-webhook logs for failures and retries
+                                                      [boolean] [default: false]
+  -c, --config   path to json config                                    [string]
 ```
 
 ## Environment Variables
@@ -46,7 +52,7 @@ Options:
 All options can be defined in the environment and are prefixed with `PINO_SLACK_WEBHOOK_`. All
 camel-cased options are parsed with delimiters of `_`.
 
-_e.g. The option `bodyType` as an env var would be `PINO_SLACK_WEBHOOK_BODY_TYPE`._
+_e.g. The option `unfurlLinks` as an env var would be `PINO_SLACK_WEBHOOK_UNFURL_LINKS`._
 
 ## URL
 
@@ -88,20 +94,22 @@ is not reached within a certain time (`timeout`), it will auto "flush".
 
 The options passed to this follow the same values as the CLI defined above.
 
-| Property | Type                    | Required/Default |
-| -------- | ----------------------- | ---------------- |
-| url      | `string`                | REQUIRED         |
-| log      | `boolean`               | false            |
-| silent   | `boolean`               | false            |
-| method   | `string`                | "POST"           |
-| bodyType | `string`                | "json"           |
-| username | `string`                |                  |
-| password | `string`                |                  |
-| headers  | `Record<string,string>` |                  |
-| retries  | `number`                | 5                |
-| interval | `number`                | 1000             |
-| timeout  | `number`                | 5000             |
-| config   | `string`                |                  |
+| Property    | Type                    | Required/Default |
+| ----------- | ----------------------- | ---------------- |
+| url         | `string`                | REQUIRED         |
+| log         | `boolean`               | false            |
+| silent      | `boolean`               | false            |
+| method      | `string`                | "POST"           |
+| username    | `string`                |                  |
+| password    | `string`                |                  |
+| headers     | `Record<string,string>` |                  |
+| retries     | `number`                | 5                |
+| interval    | `number`                | 1000             |
+| timeout     | `number`                | 5000             |
+| unfurlLinks | `boolean`               | false            |
+| unfurlMedia | `boolean`               | false            |
+| mrkdwn      | `boolean`               | false            |
+| config      | `string`                |                  |
 
 ```ts
 import { createWriteStream } from 'pino-slack-webhook';

@@ -8,7 +8,7 @@ import { send } from './send';
  * @param callback
  */
 export function handleLog(log: Record<string, unknown>, callback?: TransformCallback): void {
-  send([log]);
+  send(log);
 
   callback?.();
 }

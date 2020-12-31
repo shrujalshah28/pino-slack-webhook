@@ -3,10 +3,12 @@ import yargs from 'yargs';
 
 export type Args = {
   url: string;
+  unfurlLinks?: boolean;
+  unfurlMedia?: boolean;
+  mrkdwn?: boolean;
   log?: boolean;
   silent?: boolean;
   method?: string;
-  bodyType?: string;
   username?: string;
   password?: string;
   headers?: Record<string, string>;
@@ -23,11 +25,13 @@ const defaultArgs: Args = {
   log: false,
   silent: true,
   method: 'POST',
-  bodyType: 'json',
   url: '',
   retries: 5,
   interval: 1000,
   timeout: 5000,
+  unfurlLinks: false,
+  unfurlMedia: false,
+  mrkdwn: false,
 };
 
 export let args: Args;
@@ -56,14 +60,6 @@ export function loadArgs(): Args {
       choices: ['POST', 'PUT', 'PATCH', 'GET'],
       group: 'Sending',
       default: 'POST',
-    })
-    .option('bodyType', {
-      alias: 'b',
-      type: 'string',
-      choices: ['json', 'ndjson'],
-      desc: 'type of body to send',
-      group: 'Sending',
-      default: 'json',
     })
     .option('url', {
       type: 'string',
@@ -103,6 +99,25 @@ export function loadArgs(): Args {
       desc: 'timeout (in ms) to send logs in bucket that are not filled',
       group: 'Sending',
       default: 5000,
+    })
+    .option('unfurlLinks', {
+      type: 'boolean',
+      desc: 'Enables or disables link unfurling',
+      group: 'Slack',
+      default: false,
+    })
+    .option('unfurlMedia', {
+      type: 'boolean',
+      desc: 'Enables or disables media unfurling',
+      group: 'Slack',
+      default: false,
+    })
+    .option('mrkdwn', {
+      alias: 'm',
+      type: 'boolean',
+      desc: 'Enables or disables mrkdwn formatting',
+      group: 'Slack',
+      default: false,
     })
     .option('config', {
       alias: 'c',

@@ -3,34 +3,37 @@ import got, { Method } from 'got';
 import { args } from './args';
 import { logError, logWarn } from './log';
 
-export type BodyType = 'json' | 'ndjson';
-
 export type Body = {
-  body?: string;
-  json?: {
-    text: string;
+  json: {
+    // eslint-disable-next-line camelcase
+    unfurl_links: boolean;
+    // eslint-disable-next-line camelcase
+    unfurl_media: boolean;
+    mrkdwn: boolean;
+    text: string | unknown;
   };
 };
 
-export function createBody(logs: Record<string, unknown>[], bodyType: BodyType): Body {
-  if (bodyType === 'ndjson') {
-    return {
-      body: logs.reduce((body, log) => (body += `${JSON.stringify(log)}\n`), ''),
-    };
-  }
+export function createBody(log: Record<string, unknown>): Body {
+  const { unfurlLinks = false, unfurlMedia = false, mrkdwn = false } = args;
 
-  // default is json
-  return { json: { text: logs.reduce((body, log) => (body += `${log.msg}\n`), '') } };
+  const json = {
+    unfurl_links: unfurlLinks,
+    unfurl_media: unfurlMedia,
+    mrkdwn: mrkdwn,
+    text: log.msg,
+  };
+
+  return { json };
 }
 
-export function send(logs: Record<string, unknown>[], numRetries = 0): void {
+export function send(log: Record<string, unknown>, numRetries = 0): void {
   const {
     url,
     method,
     username,
     password,
     headers = {},
-    bodyType = 'json',
     retries = 5,
     interval = 1000,
     silent = false,
@@ -45,7 +48,7 @@ export function send(logs: Record<string, unknown>[], numRetries = 0): void {
     password,
     headers,
     allowGetBody: true,
-    ...createBody(logs, bodyType as BodyType),
+    ...createBody(log),
   })
     .then()
     .catch(err => {
@@ -57,7 +60,7 @@ export function send(logs: Record<string, unknown>[], numRetries = 0): void {
         if (!silent) {
           // make sure to stringify to get the whole thing, e.g. don't want
           // cutoffs on deep objects...
-          logWarn(`max retries hit (${retries}). dropping logs:`, JSON.stringify(logs));
+          logWarn(`max retries hit (${retries}). dropping logs:`, JSON.stringify(log));
         }
 
         return;
@@ -65,6 +68,6 @@ export function send(logs: Record<string, unknown>[], numRetries = 0): void {
 
       numRetries++;
 
-      setTimeout(() => send(logs, numRetries), interval);
+      setTimeout(() => send(log, numRetries), interval);
     });
 }
