@@ -10,7 +10,7 @@ export type Body = {
     // eslint-disable-next-line camelcase
     unfurl_media: boolean;
     mrkdwn: boolean;
-    text: string | unknown;
+    text: string;
   };
 };
 
@@ -21,7 +21,7 @@ export function createBody(log: Record<string, unknown>): Body {
     unfurl_links: unfurlLinks,
     unfurl_media: unfurlMedia,
     mrkdwn: mrkdwn,
-    text: log.msg,
+    text: `${log.level}: ${log.msg}`,
   };
 
   return { json };
