@@ -1,6 +1,17 @@
 import { readFileSync } from 'fs';
 import yargs from 'yargs';
 
+export type SlackPayload = {
+  // eslint-disable-next-line camelcase
+  unfurl_links: boolean;
+  // eslint-disable-next-line camelcase
+  unfurl_media: boolean;
+  mrkdwn: boolean;
+  text: string;
+  attachments?: Array<unknown>;
+  blocks?: Array<Record<string, unknown>>;
+};
+
 export type Args = {
   url: string;
   unfurlLinks?: boolean;
@@ -16,6 +27,7 @@ export type Args = {
   interval?: number;
   timeout?: number;
   config?: string;
+  format?: (log: Record<string, unknown>) => SlackPayload;
 };
 
 /**

@@ -1,30 +1,33 @@
 import got, { Method } from 'got';
 
-import { args } from './args';
+import { args, SlackPayload } from './args';
 import { logError, logWarn } from './log';
 
 export type Body = {
-  json: {
-    // eslint-disable-next-line camelcase
-    unfurl_links: boolean;
-    // eslint-disable-next-line camelcase
-    unfurl_media: boolean;
-    mrkdwn: boolean;
-    text: string;
-  };
+  json: SlackPayload;
 };
 
 export function createBody(log: Record<string, unknown>): Body {
-  const { unfurlLinks = false, unfurlMedia = false, mrkdwn = false } = args;
+  const { unfurlLinks = false, unfurlMedia = false, mrkdwn = false, format } = args;
 
-  const json = {
+  const payload: SlackPayload = {
     unfurl_links: unfurlLinks,
     unfurl_media: unfurlMedia,
     mrkdwn: mrkdwn,
     text: `${log.level}: ${log.msg}`,
   };
 
-  return { json };
+  if (format && typeof format === 'function') {
+    const layout = format(log);
+
+    // Note: Supplying `text` when `blocks` is also supplied will cause `text`
+    // to be used as a fallback for clients/surfaces that don't suopport blocks
+    payload.text = layout.text ?? undefined;
+    payload.attachments = layout.attachments ?? undefined;
+    payload.blocks = layout.blocks ?? undefined;
+  }
+
+  return { json: payload };
 }
 
 export function send(log: Record<string, unknown>, numRetries = 0): void {
