@@ -3,10 +3,10 @@ import yargs from 'yargs';
 
 export type SlackPayload = {
   // eslint-disable-next-line camelcase
-  unfurl_links: boolean;
+  unfurl_links?: boolean;
   // eslint-disable-next-line camelcase
-  unfurl_media: boolean;
-  mrkdwn: boolean;
+  unfurl_media?: boolean;
+  mrkdwn?: boolean;
   text: string;
   attachments?: Array<unknown>;
   blocks?: Array<Record<string, unknown>>;
