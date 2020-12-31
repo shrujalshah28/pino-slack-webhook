@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.2.0...v1.2.1) (2020-12-31)
+
+
+### Bug Fixes
+
+* make some payload property optional ([bb884c3](https://github.com/shrujalshah28/pino-slack-webhook/commit/bb884c314275178124478ac5858b7672d2259c0f))
+
 # [1.2.0](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.1.1...v1.2.0) (2020-12-31)
 
 
