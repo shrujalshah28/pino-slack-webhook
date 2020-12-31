@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.0.1...v1.1.0) (2020-12-31)
+
+
+### Features
+
+* add slack specific options ([f87127a](https://github.com/shrujalshah28/pino-slack-webhook/commit/f87127ab819111f0d52fb2989f52414e36bd786c))
+
 ## [1.0.1](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.0.0...v1.0.1) (2020-12-26)
 
 ### Performance Improvements
