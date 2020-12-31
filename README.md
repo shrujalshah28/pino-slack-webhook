@@ -59,13 +59,7 @@ _e.g. The option `unfurlLinks` as an env var would be `PINO_SLACK_WEBHOOK_UNFURL
 **Example**
 
 ```console
-node . | pino-slack-webhook --url=http://localhost:8080
-```
-
-You can also do https...
-
-```console
-node . | pino-slack-webhook --url=https://myserver.com:8080
+node . | pino-slack-webhook --url=https://hooks.slack.com/services/xxx/xxx/xxx
 ```
 
 ## Body Type
@@ -115,7 +109,7 @@ The options passed to this follow the same values as the CLI defined above.
 import { createWriteStream } from 'pino-slack-webhook';
 
 const stream = createWriteStream({
-  url: 'http://localhost:8080',
+  url: 'https://hooks.slack.com/services/xxx/xxx/xxx',
 });
 
 const logger = pino(
