@@ -1,6 +1,6 @@
 {
   "name": "pino-slack-webhook",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "🌲 Send message to Slack via webhook",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

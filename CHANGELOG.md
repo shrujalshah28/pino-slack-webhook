@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.1.1...v1.2.0) (2020-12-31)
+
+
+### Features
+
+* allow to format log message ([765bf00](https://github.com/shrujalshah28/pino-slack-webhook/commit/765bf00da33428b0536e39a0e88b33d3baf5f4d5))
+
 ## [1.1.1](https://github.com/shrujalshah28/pino-slack-webhook/compare/v1.1.0...v1.1.1) (2020-12-31)
 
 
